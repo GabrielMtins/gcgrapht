@@ -37,24 +37,20 @@ graph_options read_arguments(int argc, char** argv){
 	};
 	if(argc == 1) return option;
 	for(int i = 1; i < argc; i++){
-		if(!strcmp(argv[i], "--num-cols") || !strcmp(argv[i], "-nc")){
+		if(!strcmp(argv[i], "--grid-size") || !strcmp(argv[i], "-gs")){
 			i++;
-			ERROR_CHECKING_NUM(argv[i], option.num_cols);
+			if(!sscanf(argv[i], "%ix%i", &option.num_cols, &option.num_lines)){
+				printf("Argument is not a number\n");
+				exit(EXIT_FAILURE);
+			}
 			continue;
 		}
-		if(!strcmp(argv[i], "--num-lines") || !strcmp(argv[i], "-nl")){
+		if(!strcmp(argv[i], "--size") || !strcmp(argv[i], "-s")){
 			i++;
-			ERROR_CHECKING_NUM(argv[i], option.num_lines);
-			continue;
-		}
-		if(!strcmp(argv[i], "--width") || !strcmp(argv[i], "-w")){
-			i++;
-			ERROR_CHECKING_NUM(argv[i], option.width);
-			continue;
-		}
-		if(!strcmp(argv[i], "--height") || !strcmp(argv[i], "-h")){
-			i++;
-			ERROR_CHECKING_NUM(argv[i], option.height);
+			if(!sscanf(argv[i], "%ix%i", &option.width, &option.height)){
+				printf("Argument is not a number\n");
+				exit(EXIT_FAILURE);
+			}
 			continue;
 		}
 		if(!strcmp(argv[i], "--show-grid") || !strcmp(argv[i], "-sg")){
@@ -91,6 +87,11 @@ graph_options read_arguments(int argc, char** argv){
 		if(!strcmp(argv[i], "--axis-color") || !strcmp(argv[i], "-ac")){
 			i++;
 			option.axis_color = color_sscanf(argv[i]);
+			continue;
+		}
+		if(!strcmp(argv[i], "--output") || !strcmp(argv[i], "-o")){
+			i++;
+			option.filename = argv[i];
 			continue;
 		}
 		option.expr = argv[i];
