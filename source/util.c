@@ -3,6 +3,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/*
+    Copyright (C) 2020  Gabriel Martins
+
+    This file is part of gcgrapht.
+
+    gcgrapht is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    gcgrapth is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with gcgrapht.  If not, see <https://www.gnu.org/licenses/>
+    Contact: gabrielmartinsthe@gmail.com
+*/
+
 #define ERROR_CHECKING_NUM(str, var) if(!sscanf(str, "%i", &var)){printf("Argument is not a number\n"); exit(EXIT_FAILURE);}
 #define ERROR_CHECKING_BOUND(i, argc) if(i >= argc){printf("No argument\n"); exit(EXIT_FAILURE);}
 
@@ -102,6 +122,12 @@ graph_options read_arguments(int argc, char** argv){
 			i++;
 			ERROR_CHECKING_BOUND(i, argc);
 			option.filename = argv[i];
+			continue;
+		}
+		if(!strcmp(argv[i], "-help")){
+			printf(
+			"Copyright (C) Gabriel Martins 2020\nThis program comes with absolutely NO WARRANTY\nThis is free software and you are welcome to redistribute it\nunder certain conditions\nAlso copyright notice to:\nCopyright © 1994–2019 Lua.org, PUC-Rio.\n");
+			exit(EXIT_SUCCESS);
 			continue;
 		}
 		option.expr = argv[i];
