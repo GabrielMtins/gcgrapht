@@ -28,9 +28,9 @@
 
 static color getColorFromInt(unsigned int color_int){
 	color c = {
-		color_int&0xff,
+		(color_int>>16)&0xff,
 		(color_int>>8)&0xff,
-		(color_int>>16)&0xff
+		color_int&0xff
 	};
 	return c;
 }

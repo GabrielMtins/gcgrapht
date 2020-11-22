@@ -4,6 +4,7 @@
 #include <lauxlib.h>
 #include <lualib.h>
 #include <string.h>
+#include <stdlib.h>
 
 /*
     Copyright (C) 2020  Gabriel Martins
@@ -37,27 +38,22 @@ static double expr_solve(lua_State* L, const char* expr, double x_value){
 
 static void graph_drawGrid(bmp* image, graph_options option){
 	if(option.show_grid == 0) return;
-	for(int i = 0; i < option.width; i+= option.width/option.num_cols){
+	for(int i = 0; i < option.width; i+= option.width/option.num_cols){ // draw grids
 		bmp_drawLine(image, i, 0, i, option.height, option.grid_thickness, option.grid_color);
 	}
 	for(int i = 0; i < option.height; i+= option.height/option.num_lines){
 		bmp_drawLine(image, 0, i, option.width, i, option.grid_thickness, option.grid_color);
 	}
-	{
-		bmp_drawLine(image, 0, option.height/2, option.width, option.height/2, option.grid_thickness, option.axis_color);
-		bmp_drawLine(image, option.width/2, 0, option.width/2, option.height, option.grid_thickness, option.axis_color);
+	{ // draw axis
+		bmp_drawLine(image, 0, option.height/2, option.width, option.height/2, option.grid_thickness*2, option.axis_color);
+		bmp_drawLine(image, option.width/2, 0, option.width/2, option.height, option.grid_thickness*2, option.axis_color);
 	}
 }
 
-void graph_generate(graph_options option){
-	lua_State* L = luaL_newstate();
-	luaL_openlibs(L);
-	bmp* image = bmp_create(option.width, option.height);
-	bmp_clear(image, option.bg);
-	graph_drawGrid(image, option);
+static void graph_drawExpression(bmp* image, graph_options option, lua_State* L){
 	double old_pixel_y = -1;
 	old_pixel_y = -expr_solve(L, option.expr, -option.num_cols/2)*option.height/option.num_lines+option.height/2;
-	for(int i = -option.width/2; i < option.width/2; i++){ // draw the function
+	for(int i = -option.width/2; i < option.width/2; i++){
 		double x_value = (double)i/option.width*option.num_cols;
 		double y_value = expr_solve(L, option.expr, x_value);
 		y_value*=option.height/option.num_lines; y_value+=option.height/2;
@@ -68,6 +64,28 @@ void graph_generate(graph_options option){
 		old_pixel_y = pixel_y;
 	}
 	bmp_saveAs(image, option.filename);
+}
+
+static int graph_readFromStdin(graph_options* option){
+	size_t len = 0;
+	return getline(&option->expr, &len, stdin) != -1;
+}
+
+void graph_generate(graph_options option){
+	lua_State* L = luaL_newstate();
+	luaL_openlibs(L);
+	bmp* image = bmp_create(option.width, option.height);
+	bmp_clear(image, option.bg);
+	graph_drawGrid(image, option);
+	if(option.expr == NULL){
+		while(graph_readFromStdin(&option)){
+			graph_drawExpression(image, option, L);
+		}
+		free(option.expr);
+	}
+	else{
+		graph_drawExpression(image, option, L);
+	}
 	lua_close(L);
 }
 
