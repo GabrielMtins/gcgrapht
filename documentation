@@ -27,8 +27,8 @@ Description:
 
 	-gt, --grid-thickness
 		Set the thickness of the grid marks in pixels
-		The thickness of the x and y axis will always be doubled the thikcness
-		of the grid
+		The thickness of the x and y axis will always be doubled the 
+		thickness of the grid
 		Example: -gt 4
 
 	-bg, --background
