@@ -7,7 +7,7 @@
 ## Description
 	Generates a graph as a .ff file  
 	If there is not a function, it will read the standard input  
-```
+
 	-gs, --grid-size
 		Selects the size of the grid of the graph
 		Example: -gs 16x16
@@ -62,7 +62,6 @@
 
 	-help
 		Display a help message 
-```
 
 ## Examples
 	gcgrapht "2*x+1" - creates the graph of f(x) = 2x+1  
