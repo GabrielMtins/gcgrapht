@@ -1,2 +1,2 @@
 # gcgrapht
-	gcgrapht - Generates a graph as a .ff (farbfeld) file  
+gcgrapht - Generates a graph as a .ff (farbfeld) file  
