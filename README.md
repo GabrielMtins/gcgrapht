@@ -1,12 +1,12 @@
 # gcgrapht
-	gcgrapht - Generates a graph as a .ff (farbfeld) file   
+	gcgrapht - Generates a graph as a .ff (farbfeld) file  
 
 ## Synopsis
-	gcgrapht [OPTION] ... [FUNCTION]   
+	gcgrapht OPTION ... FUNCTION  
 
 ## Description
-	Generates a graph as a .ff file   
-	If there is not a function, it will read the standard input   
+	Generates a graph as a .ff file  
+	If there is not a function, it will read the standard input  
 ```
 	-gs, --grid-size
 		Selects the size of the grid of the graph
@@ -65,7 +65,7 @@
 ```
 
 ## Examples
-	gcgrapht "2*x+1" - creates the graph of f(x) = 2x+1    
-	gcgrapht "x^2" -o graph.ff - creates the graph of f(x) = x^2 and saves it to the graph.ff file    
+	gcgrapht "2*x+1" - creates the graph of f(x) = 2x+1  
+	gcgrapht "x^2" -o graph.ff - creates the graph of f(x) = x^2 and saves it to the graph.ff file  
 ## Author
 	Written by Gabriel Martins  
