@@ -67,5 +67,15 @@ Display a help message
 ## Examples
 gcgrapht "2*x+1" - creates the graph of f(x) = 2x+1  
 gcgrapht "x^2" -o graph.ff - creates the graph of f(x) = x^2 and saves it to the graph.ff file  
+
 ## Author
 Written by Gabriel Martins  
+
+## Copyright
+	Copyright (C) Gabriel Martins 2020. License GPLv3+: GNU GPL    
+	Version 3 or later   
+	This is free software. You are free to change and redistribute it.   
+	There is NO WARRANTY, to the extent permited by law.   
+
+	Copyright © 1994–2019 Lua.org, PUC-Rio.   
+	(This program uses the Lua C API to generate graphs)   
