@@ -28,7 +28,7 @@ bmp* bmp_create(int width, int height){
 	bmp* self = malloc(sizeof(bmp));
 	self->width = width;
 	self->height = height;
-	self->buffer = malloc(width*height*3);
+	self->buffer = malloc(width*height*4*2);
 	return self;
 }
 
@@ -42,9 +42,14 @@ void bmp_clear(bmp* self, color c){
 
 void bmp_drawPixel(bmp* self, int i, int j, color c){
 	if(i < 0 || j < 0 || i >= self->width || j >= self->height) return;
-	self->buffer[3*(i+j*self->width)+0] = c.b;
-	self->buffer[3*(i+j*self->width)+1] = c.g;
-	self->buffer[3*(i+j*self->width)+2] = c.r;
+	self->buffer[8*(i+j*self->width)+7] = 255;
+	self->buffer[8*(i+j*self->width)+6] = 255;
+	self->buffer[8*(i+j*self->width)+5] = 0;
+	self->buffer[8*(i+j*self->width)+4] = c.b;
+	self->buffer[8*(i+j*self->width)+3] = 0;
+	self->buffer[8*(i+j*self->width)+2] = c.g;
+	self->buffer[8*(i+j*self->width)+1] = 0;
+	self->buffer[8*(i+j*self->width)+0] = c.r;
 }
 
 void bmp_drawLine(bmp* self, int x1, int y1, int x2, int y2, int thickness, color c){
@@ -76,15 +81,21 @@ void bmp_saveAs(bmp* self, const char* filename){
 		printf("failed to open file\n");
 		exit(-1);
 	}
-	uint8_t header[18] = {};
-	header[2] = 2;
-	header[12] = 255 & self->width;
-	header[13] = 255 & (self->width>>8);
-	header[14] = 255 & self->height;
-	header[15] = 255 & (self->height>>8);
-	header[16] = 24;
-	header[17] = 32;
-	fwrite(header, 18, 1, file);
-	fwrite(self->buffer, self->width*self->height*3, 1, file);
+	uint8_t width[] = {
+		0,
+		0,
+		255 & (self->width>>8),
+		255 & self->width,
+	};
+	uint8_t height[] = {
+		0,
+		0,
+		255 & (self->height>>8),
+		255 & self->height,
+	};
+	fwrite("farbfeld", 8, 1, file);
+	fwrite(width, 4, 1, file);
+	fwrite(height, 4, 1, file);
+	fwrite(self->buffer, 2*4*self->width*self->height, 1, file);
 	fclose(file);
 }

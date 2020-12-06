@@ -45,10 +45,10 @@ static color color_sscanf(char* argv){
 
 graph_options read_arguments(int argc, char** argv){
 	graph_options option = {
-		512, 512,
+		1024, 1024,
 		16, 16,
+		4,
 		2,
-		1,
 		{0x00, 0x00, 0x00},
 		{0x64, 0x00, 0xde},
 		NULL, NULL,
