@@ -2,8 +2,15 @@
 gcgrapht - Generates a graph as a .ff (farbfeld) file  
 
 ## Synopsis
-gcgrapht [OPTION] ... [FUNCTION]  
+gcgrapht [OPTION] ... [FUNCTION]   
 
+## Installation
+```
+$ git clone https://github.com/GabrielMtins/gcgrapht.git
+$ cd gcgrapht
+$ make
+$ sudo make install
+```
 ## Description
 Generates a graph as a .ff file  
 If there is not a function, it will read the standard input  
@@ -66,8 +73,8 @@ Display a help message
 
 ## Examples
 ```
-gcgrapht "2*x+1" - creates the graph of f(x) = 2x+1  
-gcgrapht "x^2" -o graph.ff - creates the graph of f(x) = x^2 and saves it to the graph.ff file  
+$ gcgrapht "2*x+1" - creates the graph of f(x) = 2x+1  
+$ gcgrapht "x^2" -o graph.ff - creates the graph of f(x) = x^2 and saves it to the graph.ff file  
 ```
 Here's a simple example using unix pipelines (since the program can read from the stdin)   
 ```
