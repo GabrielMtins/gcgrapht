@@ -65,16 +65,21 @@ Display a help message
 ```
 
 ## Examples
+```
 gcgrapht "2*x+1" - creates the graph of f(x) = 2x+1  
 gcgrapht "x^2" -o graph.ff - creates the graph of f(x) = x^2 and saves it to the graph.ff file  
-
+```
+Here's a simple example using unix pipelines (since the program can read from the stdin)   
+```
+$ echo -e "x^2-1\n2^x+1" > func.txt
+$ cat func.txt | gcgrapht
+$ ff2png < image.ff > image.png
+```
 ## Author
-Written by Gabriel Martins  
+Written by Gabriel Martins   
 
 ## Copyright
-Copyright (C) Gabriel Martins 2020. License GPLv3+: GNU GPL    
-Version 3 or later   
-This is free software. You are free to change and redistribute it.   
+Copyright (C) Gabriel Martins 2020. License GPLv3+: GNU GPL Version 3 or later. This is free software. You are free to change and redistribute it.   
 There is NO WARRANTY, to the extent permited by law.   
 
 Copyright © 1994–2019 Lua.org, PUC-Rio.   
