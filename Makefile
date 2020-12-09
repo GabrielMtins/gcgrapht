@@ -19,10 +19,11 @@
 
 CC = gcc
 EXEC ?= gcgrapht
+MAN_FILE := gcgrapht.1
 
 CCFLAGS := -Wall -Wextra -O2
 
-LIBFLAGS := -llua -lm -ldl
+LIBFLAGS := -llua -lgffimage -lm -ldl
 
 SRC_DIR := source
 
@@ -41,6 +42,7 @@ $(EXEC): $(OBJECTS)
 
 install:
 	cp $(EXEC) /usr/bin/$(EXEC)
+	cp $(MAN_FILE) /usr/share/man/man1/
 
 clean:
 	rm -r build
