@@ -26,15 +26,16 @@
 #define ERROR_CHECKING_NUM(str, var) if(!sscanf(str, "%i", &var)){printf("Argument is not a number\n"); exit(EXIT_FAILURE);}
 #define ERROR_CHECKING_BOUND(i, argc) if(i >= argc){printf("No argument\n"); exit(EXIT_FAILURE);}
 
-static color getColorFromInt(unsigned int color_int){
-	color c = {
+static ffcolor getColorFromInt(unsigned int color_int){
+	ffcolor c = {
 		(color_int>>16)&0xff,
 		(color_int>>8)&0xff,
-		color_int&0xff
+		color_int&0xff,
+		255
 	};
 	return c;
 }
-static color color_sscanf(char* argv){
+static ffcolor color_sscanf(char* argv){
 	unsigned int color;
 	if(!sscanf(argv, "%x", &color)){
 		printf("Argument is not a valid color\n");
@@ -49,11 +50,11 @@ graph_options read_arguments(int argc, char** argv){
 		16, 16,
 		4,
 		2,
-		{0x00, 0x00, 0x00},
-		{0x64, 0x00, 0xde},
+		{0x00, 0x00, 0x00, 0xff},
+		{0x64, 0x00, 0xde, 0xff},
 		NULL, NULL,
-		{0x80, 0x80, 0x80},
-		{0xff, 0xff, 0xff},
+		{0x80, 0x80, 0x80, 0xff},
+		{0xff, 0xff, 0xff, 0xff},
 		1
 	};
 	if(argc == 1) return option;

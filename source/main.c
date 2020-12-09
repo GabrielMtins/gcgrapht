@@ -1,4 +1,3 @@
-#include "bmp.h"
 #include "graph.h"
 #include "util.h"
 #include <stdio.h>

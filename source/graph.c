@@ -1,5 +1,4 @@
 #include "graph.h"
-#include "bmp.h"
 #include <lua.h>
 #include <lauxlib.h>
 #include <lualib.h>
@@ -36,21 +35,21 @@ static double expr_solve(lua_State* L, const char* expr, double x_value){
 	return lua_tonumber(L, -1);
 }
 
-static void graph_drawGrid(bmp* image, graph_options option){
+static void graph_drawGrid(ffimage* image, graph_options option){
 	if(option.show_grid == 0) return;
 	for(int i = 0; i < option.width; i+= option.width/option.num_cols){ // draw grids
-		bmp_drawLine(image, i, 0, i, option.height, option.grid_thickness, option.grid_color);
+		ffimage_drawLine(image, i, 0, i, option.height, option.grid_thickness, option.grid_color);
 	}
 	for(int i = 0; i < option.height; i+= option.height/option.num_lines){
-		bmp_drawLine(image, 0, i, option.width, i, option.grid_thickness, option.grid_color);
+		ffimage_drawLine(image, 0, i, option.width, i, option.grid_thickness, option.grid_color);
 	}
 	{ // draw axis
-		bmp_drawLine(image, 0, option.height/2, option.width, option.height/2, option.grid_thickness*2, option.axis_color);
-		bmp_drawLine(image, option.width/2, 0, option.width/2, option.height, option.grid_thickness*2, option.axis_color);
+		ffimage_drawLine(image, 0, option.height/2, option.width, option.height/2, option.grid_thickness*2, option.axis_color);
+		ffimage_drawLine(image, option.width/2, 0, option.width/2, option.height, option.grid_thickness*2, option.axis_color);
 	}
 }
 
-static void graph_drawExpression(bmp* image, graph_options option, lua_State* L){
+static void graph_drawExpression(ffimage* image, graph_options option, lua_State* L){
 	double old_pixel_y = -1;
 	old_pixel_y = -expr_solve(L, option.expr, -option.num_cols/2)*option.height/option.num_lines+option.height/2;
 	for(int i = -option.width/2; i < option.width/2; i++){
@@ -60,10 +59,10 @@ static void graph_drawExpression(bmp* image, graph_options option, lua_State* L)
 		if((y_value < 0 || y_value > option.height) && (old_pixel_y < 0 || old_pixel_y > option.height)) continue;
 		double pixel_x = i+option.width/2;
 		double pixel_y = option.height-y_value;
-		bmp_drawLine(image, pixel_x, pixel_y, pixel_x-1, old_pixel_y, option.line_thickness, option.fg);
+		ffimage_drawLine(image, pixel_x, pixel_y, pixel_x-1, old_pixel_y, option.line_thickness, option.fg);
 		old_pixel_y = pixel_y;
 	}
-	bmp_saveAs(image, option.filename);
+	ffimage_saveAs(image, option.filename);
 }
 
 static int graph_readFromStdin(graph_options* option){
@@ -74,8 +73,8 @@ static int graph_readFromStdin(graph_options* option){
 void graph_generate(graph_options option){
 	lua_State* L = luaL_newstate();
 	luaL_openlibs(L);
-	bmp* image = bmp_create(option.width, option.height);
-	bmp_clear(image, option.bg);
+	ffimage* image = ffimage_create(option.width, option.height);
+	ffimage_clear(image, option.bg);
 	graph_drawGrid(image, option);
 	if(option.expr == NULL){
 		while(graph_readFromStdin(&option)){

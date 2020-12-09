@@ -2,7 +2,7 @@
 #define GRAPH_H
 
 #include <stddef.h>
-#include "bmp.h"
+#include <gffimage/ffimage.h>
 
 /*
     Copyright (C) 2020  Gabriel Martins
@@ -29,11 +29,11 @@ typedef struct{
 	int num_cols, num_lines;
 	int line_thickness;
 	int show_grid;
-	color bg, fg; //foreground and background
+	ffcolor bg, fg; //foreground and background
 	char* expr;
 	char* filename;
-	color grid_color;
-	color axis_color;
+	ffcolor grid_color;
+	ffcolor axis_color;
 	int grid_thickness;
 } graph_options;
 
