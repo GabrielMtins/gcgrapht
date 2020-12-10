@@ -37,7 +37,7 @@ static ffcolor getColorFromInt(unsigned int color_int){
 }
 static ffcolor color_sscanf(char* argv){
 	unsigned int color;
-	if(!sscanf(argv, "%x", &color) sscanf(argv, "%X", &color)){
+	if(!sscanf(argv, "%x", &color)){
 		printf("Argument is not a valid color\n");
 		exit(EXIT_FAILURE);	
 	}
