@@ -4,6 +4,7 @@
 #include <lualib.h>
 #include <string.h>
 #include <stdlib.h>
+#include <math.h>
 
 /*
     Copyright (C) 2020  Gabriel Martins
@@ -86,5 +87,5 @@ void graph_generate(graph_options option){
 		graph_drawExpression(image, option, L);
 	}
 	lua_close(L);
+	ffimage_destroy(image);
 }
-

@@ -66,70 +66,59 @@ graph_options read_arguments(int argc, char** argv){
 				printf("Argument is not a number\n");
 				exit(EXIT_FAILURE);
 			}
-			continue;
 		}
-		if(!strcmp(argv[i], "--size") || !strcmp(argv[i], "-s")){
+		else if(!strcmp(argv[i], "--size") || !strcmp(argv[i], "-s")){
 			i++;
 			ERROR_CHECKING_BOUND(i, argc);
 			if(!sscanf(argv[i], "%ix%i", &option.width, &option.height)){
 				printf("Argument is not a number\n"); exit(EXIT_FAILURE);
 			}
-			continue;
 		}
-		if(!strcmp(argv[i], "--show-grid") || !strcmp(argv[i], "-sg")){
+		else if(!strcmp(argv[i], "--show-grid") || !strcmp(argv[i], "-sg")){
 			i++;
 			ERROR_CHECKING_BOUND(i, argc);
 			if(!strcmp(argv[i], "true")) option.show_grid = 1;
 			else option.show_grid = 0;
-			continue;
 		}
-		if(!strcmp(argv[i], "--line-thickness") || !strcmp(argv[i], "-lt")){
+		else if(!strcmp(argv[i], "--line-thickness") || !strcmp(argv[i], "-lt")){
 			i++;
 			ERROR_CHECKING_BOUND(i, argc);
 			ERROR_CHECKING_NUM(argv[i], option.line_thickness);
-			continue;
 		}
-		if(!strcmp(argv[i], "--grid-thickness") || !strcmp(argv[i], "-gt")){
+		else if(!strcmp(argv[i], "--grid-thickness") || !strcmp(argv[i], "-gt")){
 			i++;
 			ERROR_CHECKING_BOUND(i, argc);
 			ERROR_CHECKING_NUM(argv[i], option.grid_thickness);
-			continue;
 		}
-		if(!strcmp(argv[i], "--background") || !strcmp(argv[i], "-bg")){
+		else if(!strcmp(argv[i], "--background") || !strcmp(argv[i], "-bg")){
 			i++;
 			ERROR_CHECKING_BOUND(i, argc);
 			option.bg = color_sscanf(argv[i]);
-			continue;
 		}
-		if(!strcmp(argv[i], "--foreground") || !strcmp(argv[i], "-fg")){
+		else if(!strcmp(argv[i], "--foreground") || !strcmp(argv[i], "-fg")){
 			i++;
 			ERROR_CHECKING_BOUND(i, argc);
 			option.fg = color_sscanf(argv[i]);
-			continue;
 		}
-		if(!strcmp(argv[i], "--grid-color") || !strcmp(argv[i], "-gc")){
+		else if(!strcmp(argv[i], "--grid-color") || !strcmp(argv[i], "-gc")){
 			i++;
 			ERROR_CHECKING_BOUND(i, argc);
 			option.grid_color = color_sscanf(argv[i]);
-			continue;
 		}
-		if(!strcmp(argv[i], "--axis-color") || !strcmp(argv[i], "-ac")){
+		else if(!strcmp(argv[i], "--axis-color") || !strcmp(argv[i], "-ac")){
 			i++;
 			ERROR_CHECKING_BOUND(i, argc);
 			option.axis_color = color_sscanf(argv[i]);
-			continue;
 		}
-		if(!strcmp(argv[i], "--output") || !strcmp(argv[i], "-o")){
+		else if(!strcmp(argv[i], "--output") || !strcmp(argv[i], "-o")){
 			i++;
 			ERROR_CHECKING_BOUND(i, argc);
 			option.filename = argv[i];
-			continue;
 		}
-		if(!strcmp(argv[i], "-help")){
+		else if(!strcmp(argv[i], "-help")){
 			printf(
 			"Copyright (C) Gabriel Martins 2020\nThis program comes with absolutely NO WARRANTY\nThis is free software and you are welcome to redistribute it\nunder certain conditions\nAlso copyright notice to:\nCopyright © 1994–2019 Lua.org, PUC-Rio.\n");
 			exit(EXIT_SUCCESS);
-			continue;
 		}
 		option.expr = argv[i];
 	}
