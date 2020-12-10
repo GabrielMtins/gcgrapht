@@ -120,7 +120,7 @@ graph_options read_arguments(int argc, char** argv){
 			"Copyright (C) Gabriel Martins 2020\nThis program comes with absolutely NO WARRANTY\nThis is free software and you are welcome to redistribute it\nunder certain conditions\nAlso copyright notice to:\nCopyright © 1994–2019 Lua.org, PUC-Rio.\n");
 			exit(EXIT_SUCCESS);
 		}
-		option.expr = argv[i];
+		else option.expr = argv[i];
 	}
 	return option;
 }
