@@ -62,11 +62,6 @@ Set the xy axis color
 The color needs to be in hexadecimal
 Example: -fg FF0000 (set the color to red)
 
--ac, --axis-color
-Set the xy axis color
-The color needs to be in hexadecimal
-Example: -fg FF0000 (set the color to red)
-
 -o, --output
 Set the output file
 If not set, the output file will be image.ff
