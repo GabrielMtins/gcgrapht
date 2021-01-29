@@ -26,6 +26,10 @@
 #define ERROR_CHECKING_NUM(str, var) if(!sscanf(str, "%i", &var)){printf("Argument is not a number\n"); exit(EXIT_FAILURE);}
 #define ERROR_CHECKING_BOUND(i, argc) if(i >= argc){printf("No argument\n"); exit(EXIT_FAILURE);}
 
+static ffcolor getColorFromInt(unsigned int color_int);
+
+static ffcolor color_sscanf(char* argv);
+
 static ffcolor getColorFromInt(unsigned int color_int){
 	ffcolor c = {
 		(color_int>>16)&0xff,

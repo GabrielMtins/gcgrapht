@@ -26,6 +26,14 @@
     Contact: gabrielmartinsthe@gmail.com
 */
 
+static double expr_solve(lua_State* L, const char* expr, double x_value);
+
+static void graph_drawGrid(ffimage* image, graph_options option);
+
+static void graph_drawExpression(ffimage* image, graph_options option, lua_State* L);
+
+static int graph_readFromStdin(graph_options* option);
+
 static double expr_solve(lua_State* L, const char* expr, double x_value){
 	lua_pushnumber(L, x_value);
 	lua_setglobal(L, "x");
