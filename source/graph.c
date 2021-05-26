@@ -61,6 +61,7 @@ static void graph_drawGrid(ffimage* image, graph_options option){
 static void graph_drawExpression(ffimage* image, graph_options option, lua_State* L){
 	double old_pixel_y = -1;
 	old_pixel_y = -expr_solve(L, option.expr, -option.num_cols/2)*option.height/option.num_lines+option.height/2;
+
 	for(int i = -option.width/2; i < option.width/2; i++){
 		double x_value = (double)i/option.width*option.num_cols;
 		double y_value = expr_solve(L, option.expr, x_value);
@@ -71,7 +72,9 @@ static void graph_drawExpression(ffimage* image, graph_options option, lua_State
 		ffimage_drawLine(image, pixel_x, pixel_y, pixel_x-1, old_pixel_y, option.line_thickness, option.fg);
 		old_pixel_y = pixel_y;
 	}
-	ffimage_saveAs(image, option.filename);
+
+	if(!strcmp(option.filename, "stdout")) ffimage_saveToOutput(image);
+	else ffimage_saveAs(image, option.filename);
 }
 
 static int graph_readFromStdin(graph_options* option){
@@ -85,6 +88,7 @@ void graph_generate(graph_options option){
 	ffimage* image = ffimage_create(option.width, option.height);
 	ffimage_clear(image, option.bg);
 	graph_drawGrid(image, option);
+
 	if(option.expr == NULL){
 		while(graph_readFromStdin(&option)){
 			graph_drawExpression(image, option, L);
@@ -94,6 +98,7 @@ void graph_generate(graph_options option){
 	else{
 		graph_drawExpression(image, option, L);
 	}
+
 	lua_close(L);
 	ffimage_destroy(image);
 }
